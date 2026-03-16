@@ -861,6 +861,10 @@ func TestSchedulerMultiRigConvoyAutoResolve(t *testing.T) {
 	addBeadDependencyOfType(t, convoyID, bead1, "tracks", hqPath)
 	addBeadDependencyOfType(t, convoyID, bead2, "tracks", hqPath)
 
+	// Wait for bd's issues.jsonl timestamp to settle (same race as
+	// TestSchedulerDirectConvoyDispatch — 1-second granularity stale check).
+	time.Sleep(1100 * time.Millisecond)
+
 	// Dry-run: verify auto-rig-resolution routes each bead correctly.
 	out := runGTCmdOutput(t, gtBinary, hqPath, env, "sling", convoyID, "--dry-run")
 
