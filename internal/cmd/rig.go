@@ -763,6 +763,7 @@ func runRigList(cmd *cobra.Command, args []string) error {
 		Refinery    string `json:"refinery"`
 		Polecats    int    `json:"polecats"`
 		Crew        int    `json:"crew"`
+		RepoPath    string `json:"repo_path,omitempty"`
 		// sorting fields (not exported to JSON)
 		sortPrio int
 	}
@@ -803,6 +804,7 @@ func runRigList(cmd *cobra.Command, args []string) error {
 			Refinery:    refineryStatus,
 			Polecats:    summary.PolecatCount,
 			Crew:        summary.CrewCount,
+			RepoPath:    filepath.Join(r.Path, "refinery", "rig"),
 			sortPrio:    rigStatePriority(witnessRunning, refineryRunning, opState),
 		})
 	}
