@@ -10,25 +10,31 @@ import (
 func TestWispTypeToCategory(t *testing.T) {
 	tests := []struct {
 		wispType string
+		title    string
 		want     string
 	}{
-		{"heartbeat", "Heartbeats"},
-		{"ping", "Heartbeats"},
-		{"patrol", "Patrols"},
-		{"gc_report", "Patrols"},
-		{"error", "Errors"},
-		{"recovery", "Errors"},
-		{"escalation", "Errors"},
-		{"", "Untyped"},
-		{"unknown", "Untyped"},
-		{"default", "Untyped"},
+		{"heartbeat", "", "Heartbeats"},
+		{"ping", "", "Heartbeats"},
+		{"patrol", "", "Patrols"},
+		{"gc_report", "", "Patrols"},
+		{"error", "", "Errors"},
+		{"recovery", "", "Errors"},
+		{"escalation", "", "Errors"},
+		{"", "", "Untyped"},
+		{"", "Weekly Patrol Summary", "Patrols"},
+		{"unknown", "", "Untyped"},
+		{"default", "", "Untyped"},
 	}
 
 	for _, tc := range tests {
-		t.Run(tc.wispType, func(t *testing.T) {
-			got := wispTypeToCategory(tc.wispType)
+		name := tc.wispType
+		if name == "" {
+			name = "empty-" + tc.title
+		}
+		t.Run(name, func(t *testing.T) {
+			got := wispTypeToCategory(tc.wispType, tc.title)
 			if got != tc.want {
-				t.Errorf("wispTypeToCategory(%q) = %q, want %q", tc.wispType, got, tc.want)
+				t.Errorf("wispTypeToCategory(%q, %q) = %q, want %q", tc.wispType, tc.title, got, tc.want)
 			}
 		})
 	}
