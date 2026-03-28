@@ -26,7 +26,6 @@ func TestGenerateCLAUDEMD(t *testing.T) {
 	}
 }
 
-
 func TestUpgradeCLAUDEMD_CreatesMissingFile(t *testing.T) {
 	tmpDir := t.TempDir()
 

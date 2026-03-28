@@ -1,0 +1,8 @@
+description = "GChat adapter"
+formula = "gchat-adapter"
+version = 1
+
+[[steps]]
+id = "run"
+title = "Run adapter"
+command = "./adapter.sh"

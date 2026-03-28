@@ -19,12 +19,12 @@ import (
 // can't find the beads prefix to check docked/parked status.
 type RigConfigSyncCheck struct {
 	FixableCheck
-	missingConfig    []string          // Rig names missing config.json
-	prefixMismatches []prefixMismatch  // Prefix mismatches between config.json and registry
-	missingRigBeads  []rigBeadInfo     // Rigs missing identity beads
-	missingDoltDB    []string          // Rigs missing Dolt database
-	missingPrefixCfg []string          // Rigs missing issue-prefix in config.yaml
-	dbNameMismatches []dbMismatch      // Dolt database name doesn't match prefix
+	missingConfig    []string         // Rig names missing config.json
+	prefixMismatches []prefixMismatch // Prefix mismatches between config.json and registry
+	missingRigBeads  []rigBeadInfo    // Rigs missing identity beads
+	missingDoltDB    []string         // Rigs missing Dolt database
+	missingPrefixCfg []string         // Rigs missing issue-prefix in config.yaml
+	dbNameMismatches []dbMismatch     // Dolt database name doesn't match prefix
 }
 
 type prefixMismatch struct {
@@ -40,10 +40,10 @@ type rigBeadInfo struct {
 }
 
 type dbMismatch struct {
-	rigName     string
-	prefix      string
-	currentDB   string
-	expectedDB  string
+	rigName    string
+	prefix     string
+	currentDB  string
+	expectedDB string
 }
 
 // NewRigConfigSyncCheck creates a new rig config sync check.

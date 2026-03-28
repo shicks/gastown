@@ -128,9 +128,9 @@ type PurgeResult struct {
 
 // AutoCloseResult holds the results of an auto-close operation.
 type AutoCloseResult struct {
-	Database string    `json:"database"`
-	Closed   int       `json:"closed"`
-	DryRun   bool      `json:"dry_run,omitempty"`
+	Database  string    `json:"database"`
+	Closed    int       `json:"closed"`
+	DryRun    bool      `json:"dry_run,omitempty"`
 	Anomalies []Anomaly `json:"anomalies,omitempty"`
 }
 

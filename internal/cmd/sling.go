@@ -401,7 +401,7 @@ func runSling(cmd *cobra.Command, args []string) (retErr error) {
 			DryRun:      slingDryRun,
 			Force:       slingForce,
 			NoMerge:     slingNoMerge,
-				ReviewOnly:  slingReviewOnly,
+			ReviewOnly:  slingReviewOnly,
 			Account:     slingAccount,
 			Agent:       slingAgent,
 			HookRawBead: slingHookRawBead,

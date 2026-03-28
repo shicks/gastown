@@ -703,4 +703,3 @@ func TestMailboxLegacyAtomicArchive(t *testing.T) {
 		t.Errorf("Archived message ID = %q, want msg-002", archived[0].ID)
 	}
 }
-

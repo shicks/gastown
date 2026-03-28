@@ -56,19 +56,19 @@ type Templates struct {
 
 // RoleData contains information for rendering role contexts.
 type RoleData struct {
-	Role           string   // mayor, witness, refinery, polecat, crew, deacon
-	RigName        string   // e.g., "greenplace"
-	TownRoot       string   // e.g., "/Users/steve/ai"
-	TownName       string   // e.g., "ai" - the town identifier for session names
-	WorkDir        string   // current working directory
-	DefaultBranch  string   // default branch for merges (e.g., "main", "develop")
-	Polecat        string   // polecat name (for polecat role)
-	Polecats       []string // list of polecats (for witness role)
-	DogName        string   // dog name (for dog role)
-	BeadsDir       string   // BEADS_DIR path
-	IssuePrefix    string   // beads issue prefix
-	MayorSession   string   // e.g., "gt-ai-mayor" - dynamic mayor session name
-	DeaconSession  string   // e.g., "gt-ai-deacon" - dynamic deacon session name
+	Role          string   // mayor, witness, refinery, polecat, crew, deacon
+	RigName       string   // e.g., "greenplace"
+	TownRoot      string   // e.g., "/Users/steve/ai"
+	TownName      string   // e.g., "ai" - the town identifier for session names
+	WorkDir       string   // current working directory
+	DefaultBranch string   // default branch for merges (e.g., "main", "develop")
+	Polecat       string   // polecat name (for polecat role)
+	Polecats      []string // list of polecats (for witness role)
+	DogName       string   // dog name (for dog role)
+	BeadsDir      string   // BEADS_DIR path
+	IssuePrefix   string   // beads issue prefix
+	MayorSession  string   // e.g., "gt-ai-mayor" - dynamic mayor session name
+	DeaconSession string   // e.g., "gt-ai-deacon" - dynamic deacon session name
 }
 
 // SpawnData contains information for spawn assignment messages.
@@ -323,10 +323,62 @@ func ProvisionSupervisor(townRoot string) (string, error) {
 	case "darwin":
 		return provisionLaunchd(data)
 	case "linux":
-		return provisionSystemd(data)
+		return provisionSystemd(data, "gastown-daemon.service", "systemd/gastown-daemon.service")
 	default:
 		return fmt.Sprintf("Supervisor auto-configuration skipped on %s (not supported yet)", runtime.GOOS), nil
 	}
+}
+
+// ProvisionGChatBridge creates and enables a systemd user unit for the GChat bridge.
+func ProvisionGChatBridge(townRoot string) (string, error) {
+	if runtime.GOOS != "linux" {
+		return "", fmt.Errorf("GChat bridge supervisor only supported on Linux (systemd)")
+	}
+
+	data := SupervisorData{
+		TownRoot: townRoot,
+	}
+
+	return provisionSystemd(data, "gchat-bridge.service", "systemd/gchat-bridge.service")
+}
+
+// UnprovisionGChatBridge disables and removes the systemd user unit for the GChat bridge.
+func UnprovisionGChatBridge() (string, error) {
+	if runtime.GOOS != "linux" {
+		return "", fmt.Errorf("GChat bridge supervisor only supported on Linux (systemd)")
+	}
+
+	serviceName := "gchat-bridge.service"
+
+	// Stop the service (ignore errors)
+	_ = exec.Command("systemctl", "--user", "stop", serviceName).Run()
+
+	// Disable the service
+	if output, err := exec.Command("systemctl", "--user", "disable", serviceName).CombinedOutput(); err != nil {
+		return "", fmt.Errorf("disabling systemd service: %s", string(output))
+	}
+
+	// Get XDG_DATA_HOME or use ~/.local/share
+	dataHome := os.Getenv("XDG_DATA_HOME")
+	if dataHome == "" {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return "", fmt.Errorf("finding home directory: %w", err)
+		}
+		dataHome = filepath.Join(homeDir, ".local", "share")
+	}
+
+	servicePath := filepath.Join(dataHome, "systemd", "user", serviceName)
+	if err := os.Remove(servicePath); err != nil && !os.IsNotExist(err) {
+		return "", fmt.Errorf("removing service file: %w", err)
+	}
+
+	// Reload systemd daemon
+	if output, err := exec.Command("systemctl", "--user", "daemon-reload").CombinedOutput(); err != nil {
+		return "", fmt.Errorf("reloading systemd: %s", string(output))
+	}
+
+	return "Disabled and removed GChat bridge service", nil
 }
 
 // provisionLaunchd creates and loads a launchd plist on macOS.
@@ -377,7 +429,7 @@ func provisionLaunchd(data SupervisorData) (string, error) {
 }
 
 // provisionSystemd creates and enables a systemd user unit on Linux.
-func provisionSystemd(data SupervisorData) (string, error) {
+func provisionSystemd(data SupervisorData, serviceName, templatePath string) (string, error) {
 	// Get XDG_DATA_HOME or use ~/.local/share
 	dataHome := os.Getenv("XDG_DATA_HOME")
 	if dataHome == "" {
@@ -393,10 +445,10 @@ func provisionSystemd(data SupervisorData) (string, error) {
 		return "", fmt.Errorf("creating systemd user directory: %w", err)
 	}
 
-	servicePath := filepath.Join(systemdDir, "gastown-daemon.service")
+	servicePath := filepath.Join(systemdDir, serviceName)
 
 	// Read the template
-	templateContent, err := supervisorFS.ReadFile("systemd/gastown-daemon.service")
+	templateContent, err := supervisorFS.ReadFile(templatePath)
 	if err != nil {
 		return "", fmt.Errorf("reading systemd template: %w", err)
 	}
@@ -423,14 +475,14 @@ func provisionSystemd(data SupervisorData) (string, error) {
 	}
 
 	// Enable the service
-	if output, err := exec.Command("systemctl", "--user", "enable", "gastown-daemon.service").CombinedOutput(); err != nil {
+	if output, err := exec.Command("systemctl", "--user", "enable", serviceName).CombinedOutput(); err != nil {
 		return "", fmt.Errorf("enabling systemd service: %s", string(output))
 	}
 
 	// Start the service
-	if output, err := exec.Command("systemctl", "--user", "start", "gastown-daemon.service").CombinedOutput(); err != nil {
+	if output, err := exec.Command("systemctl", "--user", "start", serviceName).CombinedOutput(); err != nil {
 		return "", fmt.Errorf("starting systemd service: %s", string(output))
 	}
 
-	return "Created and enabled systemd user service: gastown-daemon.service", nil
+	return fmt.Sprintf("Created, enabled and started systemd user service: %s", serviceName), nil
 }

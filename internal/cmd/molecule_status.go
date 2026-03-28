@@ -466,7 +466,8 @@ func runMoleculeStatus(cmd *cobra.Command, args []string) error {
 	var hookBead *beads.Issue
 	isPolecat := roleCtx.Role == RolePolecat ||
 		(os.Getenv("GT_ROLE") != "" && func() bool {
-			r, _, _ := parseRoleString(os.Getenv("GT_ROLE")); return r == RolePolecat
+			r, _, _ := parseRoleString(os.Getenv("GT_ROLE"))
+			return r == RolePolecat
 		}())
 
 	hookBead = lookupHookedWork()

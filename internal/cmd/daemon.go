@@ -106,6 +106,31 @@ Examples:
 	RunE: runDaemonEnableSupervisor,
 }
 
+var daemonEnableGChatBridgeCmd = &cobra.Command{
+	Use:   "enable-gchat-bridge",
+	Short: "Configure systemd for GChat bridge auto-restart",
+	Long: `Configure external supervision for the GChat bridge.
+
+This command creates and enables a systemd user service on Linux that
+will automatically restart the GChat bridge if it crashes or terminates.
+
+Examples:
+  gt daemon enable-gchat-bridge`,
+	RunE: runDaemonEnableGChatBridge,
+}
+
+var daemonDisableGChatBridgeCmd = &cobra.Command{
+	Use:   "disable-gchat-bridge",
+	Short: "Disable systemd for GChat bridge",
+	Long: `Disable and remove external supervision for the GChat bridge.
+
+This command stops and disables the systemd user service for the GChat bridge.
+
+Examples:
+  gt daemon disable-gchat-bridge`,
+	RunE: runDaemonDisableGChatBridge,
+}
+
 var daemonRotateLogsCmd = &cobra.Command{
 	Use:   "rotate-logs",
 	Short: "Rotate daemon log files",
@@ -153,6 +178,8 @@ func init() {
 	daemonCmd.AddCommand(daemonLogsCmd)
 	daemonCmd.AddCommand(daemonRunCmd)
 	daemonCmd.AddCommand(daemonEnableSupervisorCmd)
+	daemonCmd.AddCommand(daemonEnableGChatBridgeCmd)
+	daemonCmd.AddCommand(daemonDisableGChatBridgeCmd)
 	daemonCmd.AddCommand(daemonClearBackoffCmd)
 	daemonCmd.AddCommand(daemonRotateLogsCmd)
 
@@ -374,6 +401,37 @@ func runDaemonEnableSupervisor(cmd *cobra.Command, args []string) error {
 		fmt.Println("  systemctl --user stop gastown-daemon.service")
 		fmt.Println("  systemctl --user disable gastown-daemon.service")
 	}
+	return nil
+}
+
+func runDaemonEnableGChatBridge(cmd *cobra.Command, args []string) error {
+	townRoot, err := workspace.FindFromCwdOrError()
+	if err != nil {
+		return fmt.Errorf("not in a Gas Town workspace: %w", err)
+	}
+
+	msg, err := templates.ProvisionGChatBridge(townRoot)
+	if err != nil {
+		return fmt.Errorf("configuring GChat bridge supervisor: %w", err)
+	}
+
+	fmt.Printf("%s %s\n", style.Bold.Render("✓"), msg)
+	fmt.Println("\nThe GChat bridge will now:")
+	fmt.Println("  - Auto-restart if it crashes")
+	fmt.Println("  - Start automatically on login/boot")
+	fmt.Println("\nTo stop the supervised GChat bridge:")
+	fmt.Println("  systemctl --user stop gchat-bridge.service")
+	fmt.Println("  systemctl --user disable gchat-bridge.service")
+	return nil
+}
+
+func runDaemonDisableGChatBridge(cmd *cobra.Command, args []string) error {
+	msg, err := templates.UnprovisionGChatBridge()
+	if err != nil {
+		return fmt.Errorf("disabling GChat bridge supervisor: %w", err)
+	}
+
+	fmt.Printf("%s %s\n", style.Bold.Render("✓"), msg)
 	return nil
 }
 

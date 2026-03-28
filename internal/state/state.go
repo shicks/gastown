@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/steveyegge/gastown/internal/util"
 	"github.com/google/uuid"
+	"github.com/steveyegge/gastown/internal/util"
 )
 
 // State represents the global Gas Town state.

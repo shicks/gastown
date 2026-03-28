@@ -324,4 +324,3 @@ func TestDoltOrphanedDatabaseCheck_Name(t *testing.T) {
 		t.Errorf("expected name 'dolt-orphaned-databases', got %q", check.Name())
 	}
 }
-

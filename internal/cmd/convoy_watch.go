@@ -15,9 +15,9 @@ import (
 
 // convoy watch flags
 var (
-	convoyWatchNudge  bool
-	convoyWatchAddr   string
-	convoyWatchJSON   bool
+	convoyWatchNudge bool
+	convoyWatchAddr  string
+	convoyWatchJSON  bool
 )
 
 func init() {

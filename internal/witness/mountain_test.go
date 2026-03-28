@@ -63,10 +63,10 @@ func TestHasLabel(t *testing.T) {
 // execResponses maps "command args" to (output, error) pairs.
 // runResponses maps "command args" to error.
 type mockBdResponses struct {
-	execCalls    []string
-	runCalls     []string
-	execResults  map[string]mockExecResult
-	runResults   map[string]error
+	execCalls   []string
+	runCalls    []string
+	execResults map[string]mockExecResult
+	runResults  map[string]error
 }
 
 type mockExecResult struct {

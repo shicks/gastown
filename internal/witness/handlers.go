@@ -1663,7 +1663,7 @@ type CompletionDiscovery struct {
 	MRID           string
 	Branch         string
 	MRFailed       bool
-	PushFailed     bool   // True when branch push to origin failed (gas-556)
+	PushFailed     bool // True when branch push to origin failed (gas-556)
 	CompletionTime string
 	Action         string // What was done: "merge-ready-sent", "acknowledged-idle", "phase-complete"
 	WispCreated    string // ID of cleanup wisp if created
@@ -1841,12 +1841,12 @@ func processDiscoveredCompletion(bd *BdCli, workDir, rigName string, payload *Po
 // Used to avoid redundant subprocess invocations during zombie detection, where the same
 // agent bead was previously queried 3-5 times per polecat per patrol cycle. (gt-2gra)
 type agentBeadSnapshot struct {
-	AgentState  string
-	HookBead    string
-	Labels      []string
-	UpdatedAt   string
-	ActiveMR    string
-	Fields      *beads.AgentFields // parsed from description
+	AgentState string
+	HookBead   string
+	Labels     []string
+	UpdatedAt  string
+	ActiveMR   string
+	Fields     *beads.AgentFields // parsed from description
 }
 
 // fetchAgentBeadSnapshot fetches all agent bead data in a single bd show call.
@@ -2025,13 +2025,13 @@ func getBeadStatus(bd *BdCli, workDir, beadID string) string {
 
 // resetAbandonedBead resets a dead polecat's hooked bead so it can be re-dispatched.
 // If the bead is in "hooked" or "in_progress" status, it:
-// 0. Checks if the polecat's work is already on main — if so, closes
-//    the bead instead of resetting (prevents re-dispatch of completed work)
-// 1. Records the respawn in the witness spawn-count ledger
-// 2. Resets status to open
-// 3. Clears assignee
-// 4. Sends mail to deacon for re-dispatch (includes respawn count; SPAWN_STORM
-//    prefix and Urgent priority when count exceeds max bead respawns config)
+//  0. Checks if the polecat's work is already on main — if so, closes
+//     the bead instead of resetting (prevents re-dispatch of completed work)
+//  1. Records the respawn in the witness spawn-count ledger
+//  2. Resets status to open
+//  3. Clears assignee
+//  4. Sends mail to deacon for re-dispatch (includes respawn count; SPAWN_STORM
+//     prefix and Urgent priority when count exceeds max bead respawns config)
 //
 // Returns true if the bead was recovered.
 func resetAbandonedBead(bd *BdCli, workDir, rigName, hookBead, polecatName string, router *mail.Router) bool {

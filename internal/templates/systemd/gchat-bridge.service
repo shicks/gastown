@@ -1,0 +1,17 @@
+[Unit]
+Description=Gas Town GChat Bridge
+After=network.target
+
+[Service]
+Type=simple
+# The bridge is located at the town root
+ExecStart={{.TownRoot}}/gchat_adapter/adapter.sh --run
+WorkingDirectory={{.TownRoot}}/gchat_adapter
+Restart=always
+RestartSec=10s
+Environment="GT_TOWN_ROOT={{.TownRoot}}"
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

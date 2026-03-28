@@ -1205,4 +1205,3 @@ func containsPathBoundary(line, path string) bool {
 	}
 	return false
 }
-

@@ -143,19 +143,19 @@ type DoltServerManager struct {
 	onRecoveryFn func()
 
 	// Test hooks (nil = use real implementations; set only in tests)
-	healthCheckFn      func() error
-	writeProbeCheckFn  func() error
-	identityCheckFn    func() error // nil = use real VerifyServerDataDir
-	startFn            func() error
-	runningFn          func() (int, bool)
-	stopFn             func()
-	sleepFn            func(time.Duration)
-	nowFn              func() time.Time
-	escalateFn         func(int)
-	unhealthyAlertFn   func(error)
-	readOnlyAlertFn    func(error)
-	crashAlertFn       func(int)
-	listDatabasesFn    func() ([]string, error)
+	healthCheckFn     func() error
+	writeProbeCheckFn func() error
+	identityCheckFn   func() error // nil = use real VerifyServerDataDir
+	startFn           func() error
+	runningFn         func() (int, bool)
+	stopFn            func()
+	sleepFn           func(time.Duration)
+	nowFn             func() time.Time
+	escalateFn        func(int)
+	unhealthyAlertFn  func(error)
+	readOnlyAlertFn   func(error)
+	crashAlertFn      func(int)
+	listDatabasesFn   func() ([]string, error)
 }
 
 // NewDoltServerManager creates a new Dolt server manager.

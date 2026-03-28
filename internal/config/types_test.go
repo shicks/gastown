@@ -141,7 +141,7 @@ func TestWebTimeoutsConfig_JSONRoundTrip(t *testing.T) {
 		TmuxCmdTimeout:    "3s",
 		FetchTimeout:      "12s",
 		DefaultRunTimeout: "45s",
-		MaxRunTimeout:      "90s",
+		MaxRunTimeout:     "90s",
 	}
 
 	data, err := json.Marshal(original)
@@ -621,5 +621,3 @@ func TestParseDurationOrDefault_AllWebTimeoutDefaults(t *testing.T) {
 		})
 	}
 }
-
-

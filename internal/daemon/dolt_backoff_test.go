@@ -328,11 +328,11 @@ func TestStartLocked_SkipsIfAlreadyRunning(t *testing.T) {
 	var logMessages []string
 	m := &DoltServerManager{
 		config: &DoltServerConfig{
-			Enabled:  true,
-			Port:     13307,
-			Host:     "127.0.0.1",
-			DataDir:  filepath.Join(tmpDir, "dolt"),
-			LogFile:  filepath.Join(daemonDir, "dolt-server.log"),
+			Enabled: true,
+			Port:    13307,
+			Host:    "127.0.0.1",
+			DataDir: filepath.Join(tmpDir, "dolt"),
+			LogFile: filepath.Join(daemonDir, "dolt-server.log"),
 		},
 		townRoot: tmpDir,
 		logger: func(format string, v ...interface{}) {
@@ -552,7 +552,7 @@ func newTestManager(t *testing.T) *DoltServerManager {
 			RestartWindow:        10 * time.Minute,
 			HealthyResetInterval: 50 * time.Millisecond,
 		},
-		townRoot:      tmpDir,
+		townRoot:         tmpDir,
 		logger:           func(format string, v ...interface{}) { t.Logf(format, v...) },
 		runningFn:        func() (int, bool) { return 0, false },
 		healthCheckFn:    func() error { return nil },

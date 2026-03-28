@@ -106,9 +106,9 @@ type PatrolScanStallItem struct {
 
 // PatrolScanCompleteOutput holds completion discovery results.
 type PatrolScanCompleteOutput struct {
-	Checked   int                       `json:"checked"`
-	Found     int                       `json:"found"`
-	Completed []PatrolScanCompleteItem  `json:"completed,omitempty"`
+	Checked   int                      `json:"checked"`
+	Found     int                      `json:"found"`
+	Completed []PatrolScanCompleteItem `json:"completed,omitempty"`
 }
 
 // PatrolScanCompleteItem is a single completion discovery in scan output.
