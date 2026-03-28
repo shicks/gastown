@@ -40,17 +40,6 @@
         ]
       }
     ],
-    "PreCompress": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "{{GT_BIN}} prime --hook"
-          }
-        ]
-      }
-    ],
     "BeforeAgent": [
       {
         "matcher": "",
