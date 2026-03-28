@@ -36,15 +36,15 @@ type Formula struct {
 	ReviewOnly  bool        `toml:"review_only"` // If true, all legs are analysis-only — no code commits expected (gt-kvf)
 
 	// Convoy-specific
-	Inputs    map[string]Input `toml:"inputs"`
+	Inputs    map[string]Input  `toml:"inputs"`
 	Prompts   map[string]string `toml:"prompts"`
 	Output    *Output           `toml:"output"`
 	Legs      []Leg             `toml:"legs"`
 	Synthesis *Synthesis        `toml:"synthesis"`
 
 	// Workflow-specific
-	Steps []Step           `toml:"steps"`
-	Vars  map[string]Var   `toml:"vars"`
+	Steps []Step         `toml:"steps"`
+	Vars  map[string]Var `toml:"vars"`
 
 	// Composition-specific
 	Extends []string      `toml:"extends"` // Parent formula names to inherit steps from.

@@ -320,9 +320,9 @@ func TestGetRigNameForPrefix(t *testing.T) {
 	}{
 		{"gt-", "gastown"},
 		{"bd-", "beads"},
-		{"hq-", ""},       // Town-level, no specific rig
-		{"unknown-", ""},  // Not in routes
-		{"", ""},          // Empty prefix
+		{"hq-", ""},      // Town-level, no specific rig
+		{"unknown-", ""}, // Not in routes
+		{"", ""},         // Empty prefix
 	}
 
 	for _, tc := range tests {

@@ -490,9 +490,9 @@ func TestRunGatesForPhase_FiltersCorrectly(t *testing.T) {
 	e.workDir = t.TempDir()
 	e.output = io.Discard
 	e.config.Gates = map[string]*GateConfig{
-		"pre-lint":    {Cmd: "true", Phase: GatePhasePreMerge},
-		"pre-test":    {Cmd: "true", Phase: GatePhasePreMerge},
-		"post-build":  {Cmd: "true", Phase: GatePhasePostSquash},
+		"pre-lint":   {Cmd: "true", Phase: GatePhasePreMerge},
+		"pre-test":   {Cmd: "true", Phase: GatePhasePreMerge},
+		"post-build": {Cmd: "true", Phase: GatePhasePostSquash},
 	}
 
 	// Pre-merge phase should only run pre-lint and pre-test

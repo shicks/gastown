@@ -1053,4 +1053,3 @@ func recoverOrphanedBeads(townRoot string, rigs []string, prefetchedRigs map[str
 
 	return services
 }
-

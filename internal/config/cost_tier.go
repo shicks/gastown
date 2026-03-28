@@ -199,7 +199,7 @@ func GetCurrentTier(settings *TownSettings) string {
 // An empty or missing value in actual matches an empty expected value (both mean "use default").
 func tierRolesMatch(actual, expected map[string]string) bool {
 	for _, role := range TierManagedRoles {
-		actualVal := actual[role]   // "" if not present
+		actualVal := actual[role]     // "" if not present
 		expectedVal := expected[role] // "" means "use default"
 		if actualVal != expectedVal {
 			return false

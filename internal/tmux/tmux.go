@@ -1215,7 +1215,6 @@ func nudgeFlockPath(townRoot, session string) string {
 	return filepath.Join(townRoot, constants.DirRuntime, "nudge_queue", safe, ".lock")
 }
 
-
 // IsSessionAttached returns true if the session has any clients attached.
 func (t *Tmux) IsSessionAttached(target string) bool {
 	attached, err := t.run("display-message", "-t", target, "-p", "#{session_attached}")
@@ -1376,9 +1375,9 @@ func (t *Tmux) dismissRewindMode(target string) {
 // Falls back to best-effort (no verification) if pane capture fails.
 func (t *Tmux) sendEnterVerified(target string) error {
 	const (
-		maxRetries       = 3
-		initialBackoff   = 500 * time.Millisecond
-		verifyLines      = 5 // capture last N lines for comparison
+		maxRetries     = 3
+		initialBackoff = 500 * time.Millisecond
+		verifyLines    = 5 // capture last N lines for comparison
 	)
 
 	// Snapshot pane content before Enter so we can detect processing.

@@ -212,12 +212,12 @@ func TestReapExcludesAgentBeads(t *testing.T) {
 	// by checking the source code pattern.
 	// This is a compile-time guard — if the exclusion is removed, this test
 	// will fail when the query pattern doesn't match.
-	
+
 	// The whereClause in Reap() should contain:
 	// "w.issue_type != 'agent'"
 	// This test documents the expected behavior; actual exclusion is tested
 	// in integration tests with a real database.
-	
+
 	// Integration test would require spinning up a Dolt server, which is
 	// beyond the scope of this unit test. The exclusion is verified manually
 	// by checking that agent beads are not closed by the wisp_reaper patrol.

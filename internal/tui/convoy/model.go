@@ -126,7 +126,6 @@ func loadConvoys(townBeads string) ([]ConvoyItem, error) {
 	return convoys, nil
 }
 
-
 // loadTrackedIssues loads issues tracked by a convoy.
 func loadTrackedIssues(townBeads, convoyID string) ([]IssueItem, int, int) {
 	// Validate convoy ID for safety

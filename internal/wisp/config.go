@@ -289,4 +289,3 @@ func (c *Config) Clear() error {
 	}
 	return c.save(cfg)
 }
-

@@ -384,7 +384,8 @@ func TestSessionManager_resolveBeadsDir(t *testing.T) {
 //
 // Without the fallback, GT_AGENT is never written to the tmux session table,
 // and the post-startup validation kills the session with:
-//   "GT_AGENT not set in session ... witness patrol will misidentify this polecat"
+//
+//	"GT_AGENT not set in session ... witness patrol will misidentify this polecat"
 //
 // Regression test for the bug introduced in PR #1776 which removed the
 // unconditional runtimeConfig.ResolvedAgent → SetEnvironment("GT_AGENT") logic
@@ -394,23 +395,23 @@ func TestAgentEnvOmitsGTAgent_FallbackRequired(t *testing.T) {
 
 	// Simulate what session_manager.Start calls for each dispatch scenario.
 	cases := []struct {
-		name       string
-		agent      string // opts.Agent value
-		wantGTAgent bool  // whether GT_AGENT should be in AgentEnv output
+		name        string
+		agent       string // opts.Agent value
+		wantGTAgent bool   // whether GT_AGENT should be in AgentEnv output
 	}{
 		{
-			name:       "default dispatch (no --agent flag)",
-			agent:      "",
+			name:        "default dispatch (no --agent flag)",
+			agent:       "",
 			wantGTAgent: false, // fallback needed
 		},
 		{
-			name:       "explicit --agent codex",
-			agent:      "codex",
+			name:        "explicit --agent codex",
+			agent:       "codex",
 			wantGTAgent: true,
 		},
 		{
-			name:       "explicit --agent gemini",
-			agent:      "gemini",
+			name:        "explicit --agent gemini",
+			agent:       "gemini",
 			wantGTAgent: true,
 		},
 	}

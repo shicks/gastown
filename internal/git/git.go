@@ -376,9 +376,9 @@ func configureRefspec(repoPath string, singleBranch bool) error {
 			}
 			return nil
 		}
-		headRef := strings.TrimSpace(headOut.String())        // e.g. "refs/heads/main"
-		branch := strings.TrimPrefix(headRef, "refs/heads/")  // e.g. "main"
-		refspec := branch + ":refs/remotes/origin/" + branch   // e.g. "main:refs/remotes/origin/main"
+		headRef := strings.TrimSpace(headOut.String())       // e.g. "refs/heads/main"
+		branch := strings.TrimPrefix(headRef, "refs/heads/") // e.g. "main"
+		refspec := branch + ":refs/remotes/origin/" + branch // e.g. "main:refs/remotes/origin/main"
 
 		fetchCmd := exec.Command("git", "--git-dir", gitDir, "fetch", "--depth", "1", "origin", refspec)
 		fetchCmd.Stderr = &stderr
@@ -537,10 +537,10 @@ func (g *Git) CommitAll(message string) error {
 
 // GitStatus represents the status of the working directory.
 type GitStatus struct {
-	Clean    bool
-	Modified []string
-	Added    []string
-	Deleted  []string
+	Clean     bool
+	Modified  []string
+	Added     []string
+	Deleted   []string
 	Untracked []string
 }
 
@@ -1491,8 +1491,8 @@ type UncommittedWorkStatus struct {
 	StashCount            int
 	UnpushedCommits       int
 	// Details for error messages
-	ModifiedFiles   []string
-	UntrackedFiles  []string
+	ModifiedFiles  []string
+	UntrackedFiles []string
 }
 
 // Clean returns true if there is no uncommitted work.

@@ -45,9 +45,9 @@ func init() {
 
 // StageResult is the top-level JSON output for gt convoy stage --json.
 type StageResult struct {
-	Status           string          `json:"status"`              // "staged_ready", "staged_warnings", or "error"
-	ConvoyID         string          `json:"convoy_id"`           // empty if errors prevented creation
-	Restaged         bool            `json:"restaged"`            // true if an existing convoy was updated in place
+	Status           string          `json:"status"`                       // "staged_ready", "staged_warnings", or "error"
+	ConvoyID         string          `json:"convoy_id"`                    // empty if errors prevented creation
+	Restaged         bool            `json:"restaged"`                     // true if an existing convoy was updated in place
 	ValidationBeadID string          `json:"validation_bead_id,omitempty"` // capstone validation bead (epic input only)
 	Errors           []FindingJSON   `json:"errors"`
 	Warnings         []FindingJSON   `json:"warnings"`

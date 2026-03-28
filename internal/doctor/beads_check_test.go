@@ -328,8 +328,8 @@ func TestDatabasePrefixCheck_NoBeadsDir(t *testing.T) {
 
 // mockDBPrefixGetter returns canned prefixes by directory for testing.
 type mockDBPrefixGetter struct {
-	prefixes   map[string]string // rigPath -> prefix
-	setCalls   []prefixSetCall   // recorded Fix calls (not used by getter, but handy for the mock)
+	prefixes map[string]string // rigPath -> prefix
+	setCalls []prefixSetCall   // recorded Fix calls (not used by getter, but handy for the mock)
 }
 
 type prefixSetCall struct {

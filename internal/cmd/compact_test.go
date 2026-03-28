@@ -22,8 +22,8 @@ func TestGetTTL(t *testing.T) {
 		{"recovery", 7 * 24 * time.Hour},
 		{"escalation", 7 * 24 * time.Hour},
 		{"default", 24 * time.Hour},
-		{"", 24 * time.Hour},          // empty falls back to default
-		{"unknown", 24 * time.Hour},   // unknown falls back to default
+		{"", 24 * time.Hour},        // empty falls back to default
+		{"unknown", 24 * time.Hour}, // unknown falls back to default
 	}
 
 	for _, tc := range tests {

@@ -1765,8 +1765,8 @@ func TestReuseIdlePolecat_KillsLiveSession(t *testing.T) {
 
 	// Verify it did NOT return ErrSessionRunning (the old buggy behavior)
 	if errors.Is(reuseErr, ErrSessionRunning) {
-		t.Fatalf("ReuseIdlePolecat returned ErrSessionRunning for live session — "+
-			"this is the sling-reuse-stale-session bug: idle polecats with live "+
+		t.Fatalf("ReuseIdlePolecat returned ErrSessionRunning for live session — " +
+			"this is the sling-reuse-stale-session bug: idle polecats with live " +
 			"sessions must have their session killed, not rejected")
 	}
 

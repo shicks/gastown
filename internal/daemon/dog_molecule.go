@@ -19,7 +19,7 @@ const (
 // Graceful degradation: if bd fails, the dog still does its work — molecule
 // tracking is observability, not control flow.
 type dogMol struct {
-	rootID   string // Root wisp ID (e.g., "gt-wisp-abc123"), empty if pour failed.
+	rootID   string            // Root wisp ID (e.g., "gt-wisp-abc123"), empty if pour failed.
 	stepIDs  map[string]string // step slug -> wisp issue ID
 	bdPath   string
 	townRoot string
@@ -342,5 +342,3 @@ func stripANSI(s string) string {
 	}
 	return result.String()
 }
-
-

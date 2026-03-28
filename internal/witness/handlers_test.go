@@ -1705,7 +1705,6 @@ func TestClearCompletionMetadata_NoBd(t *testing.T) {
 	}
 }
 
-
 // --- Heartbeat v2 tests (gt-3vr5) ---
 
 func TestHeartbeatV2_ExitingStateSkipsZombieDetection(t *testing.T) {

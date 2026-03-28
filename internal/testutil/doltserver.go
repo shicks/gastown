@@ -23,12 +23,12 @@ import (
 const DoltDockerImage = "dolthub/dolt-sql-server:1.83.0"
 
 var (
-	doltCtr      *dolt.DoltContainer
-	doltCtrOnce  sync.Once
-	doltCtrErr   error
-	doltCtrPort  string
-	dockerOnce   sync.Once
-	dockerAvail  bool
+	doltCtr     *dolt.DoltContainer
+	doltCtrOnce sync.Once
+	doltCtrErr  error
+	doltCtrPort string
+	dockerOnce  sync.Once
+	dockerAvail bool
 )
 
 // isDockerAvailable returns true if the Docker daemon is reachable.

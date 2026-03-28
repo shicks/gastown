@@ -332,7 +332,7 @@ var (
 			Foreground(colorDim)
 
 	MQStatusMerging = lipgloss.NewStyle().
-				Foreground(colorPrimary)
+			Foreground(colorPrimary)
 
 	MQStatusMerged = lipgloss.NewStyle().
 			Foreground(colorSuccess).

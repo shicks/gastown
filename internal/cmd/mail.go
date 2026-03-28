@@ -16,8 +16,8 @@ var (
 	mailType          string
 	mailReplyTo       string
 	mailNotify        bool
-	mailNoNotify      bool // Suppress auto-nudge notification to recipient
-	mailTo            string   // --to flag (alternative to positional arg)
+	mailNoNotify      bool   // Suppress auto-nudge notification to recipient
+	mailTo            string // --to flag (alternative to positional arg)
 	mailSendSelf      bool
 	mailCC            []string // CC recipients
 	mailInboxJSON     bool

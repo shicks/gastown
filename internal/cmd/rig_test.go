@@ -49,8 +49,8 @@ func TestIsGitRemoteURL(t *testing.T) {
 		{"-c", false},
 
 		// Malformed SCP-style — should return false
-		{"@host:path", false},    // empty user
-		{"user@:/path", false},   // empty host
+		{"@host:path", false},     // empty user
+		{"user@:/path", false},    // empty host
 		{"localhost:path", false}, // no user (not SCP-style)
 	}
 

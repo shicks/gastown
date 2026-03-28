@@ -1,0 +1,18 @@
++ set -euo pipefail
++ GCHAT=/google/bin/releases/gemini-agents-gchat/gchat
++ SPACE_ID=AAQAcAzTWoU
++ STATE_DIR=/usr/local/google/home/sdh/gt/gchat_adapter
++ STATE_FILE=/usr/local/google/home/sdh/gt/gchat_adapter/adapter_state.json
+++ realpath ./adapter.sh
++ SELF_PATH=/usr/local/google/home/sdh/gt/gchat_adapter/adapter.sh
++ case "${1:-}" in
++ log 'Starting GChat Adapter v6.0 (Dynamic Catch-up)'
+++ date +%Y-%m-%dT%H:%M:%S%z
++ echo '[2026-03-28T05:26:53+0000] Starting GChat Adapter v6.0 (Dynamic Catch-up)'
+[2026-03-28T05:26:53+0000] Starting GChat Adapter v6.0 (Dynamic Catch-up)
+++ jq -r '.last_gchat_time // ""' /usr/local/google/home/sdh/gt/gchat_adapter/adapter_state.json
++ [[ '' == '' ]]
+++ /google/bin/releases/gemini-agents-gchat/gchat list-messages --space AAQAcAzTWoU --max 1 --json
+++ jq -r '.[0].create_time // ""'
++ local newest_time=2026-03-28T05:25:45Z
+./adapter.sh: line 182: local: can only be used in a function

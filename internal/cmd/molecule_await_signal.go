@@ -87,9 +87,9 @@ var moleculeAwaitSignalShortcutCmd = &cobra.Command{
 
 // AwaitSignalResult is the result of an await-signal operation.
 type AwaitSignalResult struct {
-	Reason     string        `json:"reason"`               // "signal" or "timeout"
-	Elapsed    time.Duration `json:"elapsed"`              // how long we waited
-	Signal     string        `json:"signal,omitempty"`     // the line that woke us (if signal)
+	Reason     string        `json:"reason"`                // "signal" or "timeout"
+	Elapsed    time.Duration `json:"elapsed"`               // how long we waited
+	Signal     string        `json:"signal,omitempty"`      // the line that woke us (if signal)
 	IdleCycles int           `json:"idle_cycles,omitempty"` // current idle cycle count (after update)
 }
 
@@ -301,7 +301,9 @@ func runMoleculeAwaitSignal(cmd *cobra.Command, args []string) error {
 
 // calculateEffectiveTimeout determines the timeout based on flags.
 // If backoff parameters are provided, uses exponential backoff formula:
-//   min(base * multiplier^idleCycles, max)
+//
+//	min(base * multiplier^idleCycles, max)
+//
 // Otherwise uses the simple --timeout value.
 func calculateEffectiveTimeout(idleCycles int) (time.Duration, error) {
 	// If backoff base is set, use backoff mode
