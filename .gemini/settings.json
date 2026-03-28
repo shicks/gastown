@@ -1,0 +1,66 @@
+{
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "Bash\\(gh pr create.*\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/google/home/sdh/.local/bin/gt tap guard pr-workflow"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash\\(git checkout -b.*\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/google/home/sdh/.local/bin/gt tap guard pr-workflow"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash\\(git switch -c.*\\)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/google/home/sdh/.local/bin/gt tap guard pr-workflow"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "GT_SESSION_ID=${GT_SESSION_ID:-$(uuidgen)} GT_HOOK_SOURCE=startup /usr/local/google/home/sdh/.local/bin/gt prime --hook && /usr/local/google/home/sdh/.local/bin/gt mail check --inject"
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/google/home/sdh/.local/bin/gt mail check --inject"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/local/google/home/sdh/.local/bin/gt costs record &"
+          }
+        ]
+      }
+    ]
+  }
+}
