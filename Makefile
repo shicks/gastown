@@ -79,8 +79,7 @@ ifndef SKIP_FORWARD_CHECK
 	if [ -n "$$BINARY_COMMIT" ] && [ "$$BINARY_COMMIT" != "unknown" ]; then \
 		HEAD_COMMIT=$$(git rev-parse HEAD 2>/dev/null); \
 		if [ "$$BINARY_COMMIT" = "$$HEAD_COMMIT" ] || [ "$$(git rev-parse --short HEAD)" = "$$BINARY_COMMIT" ]; then \
-			echo "Binary is already at HEAD, nothing to do"; \
-			exit 1; \
+			echo "Binary is already at HEAD, nothing to do"; exit 0; \
 		fi; \
 		if ! git merge-base --is-ancestor "$$BINARY_COMMIT" HEAD 2>/dev/null; then \
 			echo "ERROR: HEAD ($$(git rev-parse --short HEAD)) is NOT a descendant of installed binary ($$BINARY_COMMIT)"; \
